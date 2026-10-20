@@ -36,6 +36,16 @@ jobs:
           php -v
           phpunit --version
 
+      
+      - name: Diagnosticar archivo de pruebas
+        run: |
+          echo "Primeras 15 líneas del archivo:"
+          sed -n '1,15p' tests/ReportsFiltersTest.php | cat -n
+
+          echo "Verificación de sintaxis PHP:"
+          php -l tests/ReportsFiltersTest.php
+
+
       - name: Ejecutar PCB-009
         run: |
           mkdir -p resultados
