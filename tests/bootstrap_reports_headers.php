@@ -1,7 +1,7 @@
 
 <?php
 
-$sourceFile = __DIR__ . '/../reportes_exportar.php';
+$sourceFile = __DIR__ . '/reportes_exportar.php';
 
 if (!is_file($sourceFile)) {
     throw new RuntimeException(
