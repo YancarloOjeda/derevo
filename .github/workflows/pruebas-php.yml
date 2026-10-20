@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   pruebas:
-    name: PHPUnit - PCB-014
+    name: PHPUnit - PCB-015
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
           phpunit --version
 
       
-      - name: Ejecutar PCB-014
+      - name: Ejecutar PCB-015
         run: |
           mkdir -p resultados
 
@@ -66,15 +66,20 @@ jobs:
           #   --testdox \
           #   --log-junit resultados/PCB-013.xml
 
-          # PCB-014 (activa)
-          phpunit tests/MovementsInsertTest.php \
-            --testdox \
-            --log-junit resultados/PCB-014.xml
+          # PCB-014 (desactivada)
+          # phpunit tests/MovementsInsertTest.php \
+          #   --testdox \
+          #   --log-junit resultados/PCB-014.xml
 
-      - name: Guardar evidencia PCB-014
+          # PCB-015 (activa)
+          phpunit tests/ReportsHeadersTest.php \
+            --testdox \
+            --log-junit resultados/PCB-015.xml
+
+      - name: Guardar evidencia PCB-015
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Evidencia-PCB-014
-          path: resultados/PCB-014.xml
+          name: Evidencia-PCB-015
+          path: resultados/PCB-015.xml
           if-no-files-found: warn
