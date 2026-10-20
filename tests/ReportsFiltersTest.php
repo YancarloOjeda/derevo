@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . '/../includes/reports_data.php';
+require_once __DIR__ . '/bootstrap_reports.php';
 
 final class ReportsFiltersTest extends TestCase
 {
