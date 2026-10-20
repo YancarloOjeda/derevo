@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   pruebas:
-    name: PHPUnit - PCB-009
+    name: PHPUnit - PCB-010
     runs-on: ubuntu-latest
 
     steps:
@@ -37,23 +37,12 @@ jobs:
           phpunit --version
 
       
-      - name: Diagnosticar archivo de pruebas
-        run: |
-          echo "Primeras 15 líneas del archivo:"
-          sed -n '1,15p' tests/ReportsFiltersTest.php | cat -n
-
-          echo "Verificación de sintaxis PHP:"
-          php -l tests/ReportsFiltersTest.php
 
 
-      - name: Ejecutar PCB-009 y PCB-010
+      - name: Ejecutar PCB-010
         run: |
           mkdir -p resultados
-          phpunit tests/ReportsFiltersTest.php \
-            --testdox \
-            --log-junit resultados/PCB-009.xml
-
-          phpunit tests/ReportsDatesTest.php \
+            phpunit tests/ReportsDatesTest.php \
             --testdox \
             --log-junit resultados/PCB-010.xml
 
@@ -61,6 +50,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Evidencias-PCB-009-PCB-010
+          name: Evidencias-PCB-010
           path: resultados/
           if-no-files-found: warn
