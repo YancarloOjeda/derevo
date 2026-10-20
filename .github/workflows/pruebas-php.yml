@@ -46,17 +46,21 @@ jobs:
           php -l tests/ReportsFiltersTest.php
 
 
-      - name: Ejecutar PCB-009
+      - name: Ejecutar PCB-009 y PCB-010
         run: |
           mkdir -p resultados
           phpunit tests/ReportsFiltersTest.php \
             --testdox \
             --log-junit resultados/PCB-009.xml
 
-      - name: Guardar evidencia
+          phpunit tests/ReportsDatesTest.php \
+            --testdox \
+            --log-junit resultados/PCB-010.xml
+
+      - name: Guardar evidencias
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Evidencia-PCB-009
+          name: Evidencias-PCB-009-PCB-010
           path: resultados/
           if-no-files-found: warn
