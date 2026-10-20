@@ -1,0 +1,52 @@
+
+name: Pruebas automatizadas DEREVO
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tests/**"
+      - "includes/**"
+      - ".github/workflows/pruebas-php.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    name: PHPUnit - PCB-009
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obtener archivos del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar PHP y PHPUnit
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, dom, xml
+          coverage: none
+          tools: phpunit:^11
+        env:
+          fail-fast: true
+
+      - name: Verificar entorno
+        run: |
+          php -v
+          phpunit --version
+
+      - name: Ejecutar PCB-009
+        run: |
+          mkdir -p resultados
+          phpunit tests/ReportsFiltersTest.php \
+            --testdox \
+            --log-junit resultados/PCB-009.xml
+
+      - name: Guardar evidencia
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Evidencia-PCB-009
+          path: resultados/
+          if-no-files-found: warn
